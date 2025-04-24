@@ -1,5 +1,6 @@
 import os
 import json
+from operator import index
 
 cwd_path = os.getcwd()
 file_path = "files"
@@ -41,12 +42,29 @@ def binary_search(seq, number):
             return middle
     return None
 
+#mnou vytvorena
+def recursive_binary_search(seznam, hledana, idx_l, idx_p):
+
+    mid = (idx_p + idx_l) // 2
+
+    if hledana not in seznam:
+        return None
+    elif seznam[mid] < hledana:
+        return recursive_binary_search(seznam, hledana, mid+1, idx_p)
+    elif seznam[mid] > hledana:
+        return recursive_binary_search(seznam, hledana, idx_l, mid-1)
+    else:
+        return mid
+
 
 def main(file_name, number):
     sequence = read_data(file_name=file_name, key="ordered_numbers")
 
     # iterative binary search
     binary_search(sequence, number=number)
+
+    m = recursive_binary_search(sequence, number, 0, len(sequence)-1)
+    print(m)
 
 
 if __name__ == "__main__":
